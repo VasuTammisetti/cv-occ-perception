@@ -1,0 +1,13 @@
+﻿__pycache__/
+*.pyc
+.venv/
+data/
+*.npz
+*.tgz
+*.tar.bz2
+.DS_Store
+
+gt_out/
+gt_*/
+labeling_out.txt
+*.txt

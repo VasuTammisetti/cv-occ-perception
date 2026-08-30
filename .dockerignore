@@ -1,0 +1,11 @@
+@'
+data/
+gt_out/
+__pycache__/
+*.pyc
+.venv/
+.git/
+*.tgz
+*.tar.bz2
+*.npz
+'@ | Out-File -Encoding utf8 .dockerignore
