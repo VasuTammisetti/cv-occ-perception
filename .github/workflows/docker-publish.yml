@@ -15,7 +15,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -47,7 +46,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: env.REGISTRY/{{ env.REGISTRY }}/env.REGISTRY/{{ env.IMAGE_NAME }}
+          # CORRECTED: use proper syntax and avoid duplication
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
         id: build-and-push
@@ -65,4 +65,6 @@ jobs:
         env:
           TAGS: ${{ steps.meta.outputs.tags }}
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
-        run: echo "TAGS"∣xargs−Icosignsign−−yes@{TAGS}" | xargs -I {} cosign sign --yes {}@TAGS"∣xargs−Icosignsign−−yes@{DIGEST}
+        # CORRECTED: proper shell command to sign each tag
+        run: |
+          echo "$TAGS" | xargs -I {} cosign sign --yes {}@$DIGEST
