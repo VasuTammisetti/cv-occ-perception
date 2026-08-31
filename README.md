@@ -25,6 +25,25 @@ nuScenes devkit: a torch Dataset, a registry-based encoder-neck-head model, and
 a masked cross-entropy loss that ignores unobserved voxels, all driven by a
 config.
 
+## Example output
+
+The figures below show the same nuScenes keyframe at two stages of the pipeline:
+the aggregated LiDAR point cloud that the ground truth is built from, and the
+resulting occupancy ground truth.
+
+Aggregated LiDAR (10 sweeps), bird's-eye view, colored by height:
+
+![Aggregated LiDAR bird's-eye view](figures/lidar_bev.png)
+
+Occupancy ground truth, bird's-eye view. The left panel is visibility (occupied,
+free, unobserved); the right panel is the semantic labels (foreground classes).
+The grey wedges in the visibility panel are occlusion shadows: regions the LiDAR
+could not observe because obstacles blocked the beam. They are marked unobserved
+rather than free, which is exactly what a three-state occupancy target should do.
+Where the LiDAR cloud above is empty, the occupancy grid marks unobserved.
+
+![Occupancy ground truth bird's-eye view](figures/occupancy_bev.png)
+
 ## Repository layout
 
     occperc/
@@ -92,6 +111,12 @@ Most modules have a self-test runnable as a module, for example:
     python -m occperc.gt.voxelizer --dataroot /path/to/nuscenes
     python -m occperc.gt.visibility --dataroot /path/to/nuscenes --subsample 4
     python -m occperc.losses.occupancy_loss
+
+The bird's-eye-view figures above are produced by two standalone visualization
+helpers:
+
+    python -m scripts.visualize --root gt_out --index 1 --out figures/occupancy_bev.png
+    python -m scripts.render_lidar --dataroot /path/to/nuscenes --frame 5 --out figures/lidar_bev.png
 
 ## Notes
 
