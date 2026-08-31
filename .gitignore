@@ -11,3 +11,5 @@ gt_out/
 gt_*/
 labeling_out.txt
 *.txt
+*.png
+!figures/*.png
