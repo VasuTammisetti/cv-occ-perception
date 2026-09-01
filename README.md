@@ -58,8 +58,7 @@ Where the LiDAR cloud above is empty, the occupancy grid marks unobserved.
 
 ## Dataset
 
-Requires the nuScenes v1.0-mini split (register and download at
-nuscenes.org). Extract it so the directory contains samples/, sweeps/, maps/,
+Requires the nuScenes v1.0-mini split. Extract it so the directory contains samples/, sweeps/, maps/,
 lidarseg/, and v1.0-mini/. The data is not included in this repository and is
 mounted at runtime.
 
