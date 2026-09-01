@@ -67,7 +67,7 @@ mounted at runtime.
 
 Build the image (the dataset is not baked in; it is mounted at runtime):
 
-    docker build -t occ-perception .
+    docker build -t occ-perception.
 
 Generate GT for a few keyframes, mounting your nuScenes copy at /data.
 
@@ -82,7 +82,7 @@ On Windows PowerShell, run it on one line, and put the whole volume mount
 (including the container path) inside one set of quotes. This matters when the
 data path contains spaces:
 
-    docker run --rm -v "C:\path\to\nuscenes:/data" occ-perception python -m scripts.generate_gt --dataroot /data --out /tmp/gt --max-samples 3
+    docker run --rm -v "C:\Users\vasu0\Desktop\CV-perception assignment\data:/data" occ-perception python -m scripts.generate_gt --dataroot /data --out /tmp/gt --max-samples 3
 
 Run the full pipeline (GT generation followed by the DL training loop) in one
 container.
