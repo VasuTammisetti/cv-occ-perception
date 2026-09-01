@@ -69,23 +69,34 @@ Build the image (the dataset is not baked in; it is mounted at runtime):
 
     docker build -t occ-perception .
 
-Generate GT for a few keyframes, mounting your nuScenes copy at /data:
+Generate GT for a few keyframes, mounting your nuScenes copy at /data.
+
+On Linux or macOS:
 
     docker run --rm \
         -v /path/to/nuscenes:/data \
         occ-perception \
         python -m scripts.generate_gt --dataroot /data --out /tmp/gt --max-samples 3
 
+On Windows PowerShell, run it on one line, and put the whole volume mount
+(including the container path) inside one set of quotes. This matters when the
+data path contains spaces:
+
+    docker run --rm -v "C:\path\to\nuscenes:/data" occ-perception python -m scripts.generate_gt --dataroot /data --out /tmp/gt --max-samples 3
+
 Run the full pipeline (GT generation followed by the DL training loop) in one
-container:
+container.
+
+On Linux or macOS:
 
     docker run --rm \
         -v /path/to/nuscenes:/data \
         occ-perception \
         sh -c "python -m scripts.generate_gt --dataroot /data --out /tmp/gt --max-samples 3 && python -m scripts.train --gt-root /tmp/gt --epochs 10"
 
-On Windows PowerShell, use your data path in the volume mount, for example
--v "C:\path\to\nuscenes:/data".
+On Windows PowerShell (one line):
+
+    docker run --rm -v "C:\path\to\nuscenes:/data" occ-perception sh -c "python -m scripts.generate_gt --dataroot /data --out /tmp/gt --max-samples 3 && python -m scripts.train --gt-root /tmp/gt --epochs 10"
 
 The device is auto-detected: the pipeline runs on GPU where a CUDA-enabled
 torch build and a GPU are present, and on CPU otherwise, with no config change.
@@ -133,4 +144,4 @@ This project uses the nuScenes devkit for data loading, multi-sweep
 aggregation, and coordinate transforms, and PyTorch for the deep-learning
 pipeline. The occupancy ground-truth methodology follows the conventions of
 Occ3D-nuScenes and OpenOccupancy; visibility ray casting uses the Amanatides and
-Woo (1987) voxel-traversal algorithm.
+Woo (1987) voxel-traversal algorithm. 
