@@ -67,7 +67,7 @@ mounted at runtime.
 
 Build the image (the dataset is not baked in; it is mounted at runtime):
 
-    docker build -t occ-perception.
+    docker build -t occ-perception .
 
 Generate GT for a few keyframes, mounting your nuScenes copy at /data.
 
